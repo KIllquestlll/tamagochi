@@ -1,6 +1,10 @@
 package service
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"time"
+)
 
 // Struct pet for game
 type Pet struct {
@@ -15,6 +19,20 @@ type Pet struct {
 
 	// Data-struct
 	Age int
+}
+
+func (p Pet) String() string {
+	return fmt.Sprintf("Имя:%v...Тип:%v...Голод:%v...Здоровье:%v...Счастье%v:... Энергия:%v... Возраст:%v...\n",
+		p.Name, p.Animal, p.Hungry, p.Heath, p.Happiness, p.Energy, p.Age)
+}
+
+func (p *Pet) Decay() {
+	p.Hungry -= 5
+	time.Sleep(3 * time.Second)
+	if p.Hungry <= 0 {
+		fmt.Println("Ваш питомец умер!")
+		os.Exit(1)
+	}
 }
 
 // Method For feeding'n heathing pet
